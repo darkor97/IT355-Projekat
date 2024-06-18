@@ -14,6 +14,6 @@ public class Inventory {
     private Long id;
     private int numberOfItems;
     @OneToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(referencedColumnName = "id")
     private Item item;
 }

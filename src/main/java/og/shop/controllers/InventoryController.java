@@ -1,38 +1,42 @@
 package og.shop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import og.shop.models.Inventory;
 import og.shop.services.InventoryService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
 @RequiredArgsConstructor
+@RestController
+@RequestMapping("inventory")
 public class InventoryController {
     private final InventoryService inventoryService;
 
     @GetMapping("/all")
-    public String All() {
-        return "all";
+    public ResponseEntity<List<Inventory>> All() {
+        return ResponseEntity.ok(inventoryService.GetAll());
     }
-//    @GetMapping("/{id}")
-//    public ResponseEntity<City> GetById(@PathVariable Long id) {
-//        return ResponseEntity.ok(cityService.GetById(id));
-//    }
-//
-//    @PostMapping()
-//    public ResponseEntity<City> CreateCity(@RequestBody City city) {
-//        return ResponseEntity.ok(cityService.Add(city));
-//    }
-//
-//    @PutMapping()
-//    public ResponseEntity<City> UpdateCity(@RequestBody City city) {
-//
-//        return ResponseEntity.ok(cityService.Update(city));
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<City> DeleteCity(@PathVariable Long id) {
-//        cityService.Delete(id);
-//        return ResponseEntity.ok().build();
-//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Inventory> GetById(@PathVariable Long id) {
+        return ResponseEntity.ok(inventoryService.GetById(id));
+    }
+
+    @PostMapping()
+    public ResponseEntity<Inventory> Create(@RequestBody Inventory inventory) {
+        return ResponseEntity.ok(inventoryService.Add(inventory));
+    }
+
+    @PutMapping()
+    public ResponseEntity<Inventory> Update(@RequestBody Inventory inventory) {
+        return ResponseEntity.ok(inventoryService.Update(inventory));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Inventory> Delete(@PathVariable Long id) {
+        inventoryService.Delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
