@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -17,5 +18,6 @@ public class Receipt {
     private Long id;
     private Double total;
     @OneToMany
-    private List<Item> items;
+    @JoinColumn(referencedColumnName = "id")
+    private List<Item> items = new ArrayList<>();
 }

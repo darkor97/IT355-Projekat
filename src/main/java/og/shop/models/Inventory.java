@@ -14,5 +14,6 @@ public class Inventory {
     private Long id;
     private int numberOfItems;
     @OneToOne
+    @PrimaryKeyJoinColumn
     private Item item;
 }
