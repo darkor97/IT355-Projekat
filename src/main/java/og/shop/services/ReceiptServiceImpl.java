@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReceiptServiceImpl implements ReceiptService {
     private final ReceiptRepository receiptRepository;
+    private final InventoryService inventoryService;
 
     public List<Receipt> GetAll() {
         return receiptRepository.findAll();
@@ -23,6 +24,11 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     @Override
     public Receipt Add(Receipt receipt) {
+        for (var item : receipt.getItems()) {
+            var itemState = inventoryService.GetById(item.getId());
+            itemState.setNumberOfItems(itemState.getNumberOfItems() - 1);
+            inventoryService.Update(itemState);
+        }
         return receiptRepository.save(receipt);
     }
 

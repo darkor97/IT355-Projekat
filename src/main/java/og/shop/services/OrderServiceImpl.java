@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final InventoryService inventoryService;
 
     public List<Order> GetAll() {
         return orderRepository.findAll();
@@ -23,6 +24,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order Add(Order order) {
+        for (var item : order.getItems()) {
+            var state = inventoryService.GetById(item.getId());
+            state.setNumberOfItems(state.getNumberOfItems() + 1);
+            inventoryService.Update(state);
+        }
         return orderRepository.save(order);
     }
 

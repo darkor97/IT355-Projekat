@@ -18,5 +18,5 @@ public class Order {
     private Double Total;
     @OneToMany
     @JoinColumn(referencedColumnName = "id")
-    private List<Item> item = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<Item>();
 }
