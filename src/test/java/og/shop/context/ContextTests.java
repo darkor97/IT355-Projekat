@@ -1,4 +1,4 @@
-package or.shop.context;
+package og.shop.context;
 
 import og.shop.ShopApplication;
 import og.shop.configuration.AppConfig;

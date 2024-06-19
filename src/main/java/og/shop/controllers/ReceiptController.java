@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("item")
+@RequestMapping("receipt")
 public class ReceiptController {
     private final ReceiptService receiptService;
 
