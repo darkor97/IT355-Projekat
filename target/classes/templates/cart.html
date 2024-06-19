@@ -2,25 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cart</title>
+    <title>Za naruciti</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h3 class="text-center display-1">Cart</h3>
+<h4 class="text-center display-1 mb-6">Trenutni proizvodi</h4>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-4">
-            <ul th:each="product, iterator: ${session.get('cart')}"  class="list-group">
-                <li th:text="${iterator.index + 1} + ': ' + ${product.getName()} + ' - ' + ${product.getPrice()}" class="list-group-item"></li>
+            <ul th:each="item, iterator: ${session.get('cart')}" class="list-group">
+                <li th:text="${iterator.index + 1} + ': ' + ${item.getName()} + ' - ' + ${item.getPrice()}"
+                    class="list-group-item"></li>
             </ul>
         </div>
     </div>
+    <div class="row justify-content-center mb-3">
+        <div class="col-4 justify-content-center ">
+            <span class="justify-content-center " th:text="'Ukupno: ' + ${total}">
+            <span class="justify-content-center " th:text="'Ukupno: ' + ${total}">
+            </span>
+        </div>
+    </div>
 </div>
-<div class="row justify-content-center mt-3">
+<div class="row justify-content-center mb-3">
     <div class="col-2">
-        <button class="btn btn-primary" th:onclick="|window.location.href='/'|">Back</button>
-        <button class="btn btn-success" th:onclick="|window.location.href='/order/checkout'|">Checkout</button>
+        <button class="btn btn-primary" th:onclick="|window.location.href='/'|">Kupujte jos</button>
+        <button class="btn btn-success" th:onclick="|window.location.href='/receipt'|">Naruci</button>
     </div>
 </div>
 </body>
