@@ -1,4 +1,4 @@
-package og.shop.services.services;
+package og.shop.services;
 
 import og.shop.ShopApplication;
 import og.shop.models.Customer;

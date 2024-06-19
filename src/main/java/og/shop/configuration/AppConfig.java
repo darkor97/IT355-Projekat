@@ -46,7 +46,13 @@ public class AppConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/console/**", "/inventory/**", "/order/**", "/item/**", "/customer/**", "/receipt/**").hasRole("ADMIN")
+                        .requestMatchers(
+                                "/console/**",
+                                "/inventory/**",
+                                "/order/**",
+                                "/item/**",
+                                "/customer/**",
+                                "/receipt/**").hasRole("ADMIN")
                         .requestMatchers("/item/**", "/receipt/**").hasRole("USER")
                         .requestMatchers("/error/**").permitAll()
                         .anyRequest().authenticated()

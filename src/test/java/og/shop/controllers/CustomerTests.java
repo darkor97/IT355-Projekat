@@ -1,6 +1,5 @@
 package og.shop.controllers;
 
-import og.shop.controllers.CustomerController;
 import og.shop.models.Customer;
 import og.shop.services.CustomerService;
 import org.junit.Before;
