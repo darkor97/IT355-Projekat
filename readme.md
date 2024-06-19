@@ -1,6 +1,7 @@
 # Projekat i projektna dokumentacija za predmet IT355.
 
-## Specifik
+## Spec
+ifik
 
 acije
 
@@ -84,4 +85,24 @@ Repositorijumi i njihova implementacija se mogu videti na slici.
 <p>Postoje dva fundamentalna slučaja korišćenja aplikacije, jedan je poziv API metoda a drugi predstavlja korišćenje korisničkog interfejsa.</p>
 <p>Za demonstraciju rada aplikacije neophodno je korisiti oba, kako je interfejs zavistan od API-ja, API pozivima se kreira inventar, kao i proizvodi koji se omogućuju na prodaju. </p>
 
-Neophodno je prvo kreirati proizvod za prodaju u ovom slučaju Čekić.
+Neophodno je prvo kreirati proizvode za prodaju. Da bi mogli pozivati metode neophodno je preuzeti ADMIN kolačić za autorizaciju i proslediti ga u Postman. To je moguće nakon logovanja.
+
+![login.png](src%2Fmain%2Fresources%2Fdoc-images%2Flogin.png)
+
+Zatim se uzima cookie.
+
+![cookie.png](src%2Fmain%2Fresources%2Fdoc-images%2Fcookie.png)
+
+A onda dodaje u Postman zahtev.
+
+![adding-cookie.png](src%2Fmain%2Fresources%2Fdoc-images%2Fadding-cookie.png)
+
+Nakon toga pozivamo i kreiramo proizvode i njihova stanja u inventaru. 
+
+![created-item.png](src%2Fmain%2Fresources%2Fdoc-images%2Fcreated-item.png)
+
+![created-inventory.png](src%2Fmain%2Fresources%2Fdoc-images%2Fcreated-inventory.png)
+
+Sada se na prikaz vide proizvodi.
+
+![created-items.png](src%2Fmain%2Fresources%2Fdoc-images%2Fcreated-items.png)
