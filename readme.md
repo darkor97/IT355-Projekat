@@ -106,3 +106,15 @@ Nakon toga pozivamo i kreiramo proizvode i njihova stanja u inventaru.
 Sada se na prikaz vide proizvodi.
 
 ![created-items.png](src%2Fmain%2Fresources%2Fdoc-images%2Fcreated-items.png)
+
+Korisnik ih može dodati u korpu i dobiće prikaz obaveštenja za to.
+
+![adding-items.png](src%2Fmain%2Fresources%2Fdoc-images%2Fadding-items.png)
+
+U korpi se mogu videti proizvodi i njihova cena.
+
+![to-buy.png](src%2Fmain%2Fresources%2Fdoc-images%2Fto-buy.png)
+
+I na kraju izgenerisani račun.
+
+![receipt.png](src%2Fmain%2Fresources%2Fdoc-images%2Freceipt.png)
