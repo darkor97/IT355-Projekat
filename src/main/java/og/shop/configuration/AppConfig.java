@@ -6,8 +6,18 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -24,62 +34,51 @@ public class AppConfig {
         return new EmbeddedDatabaseBuilder()
                 .setName(environment.getProperty("db.name"))
                 .setType(EmbeddedDatabaseType.H2)
+                .addScript("user.sql")
                 .build();
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf
-//                        // Ignorisanje matchere za csrf za pristup h2 konzoli
-//                        .ignoringRequestMatchers("/console/**")
-//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                )
-//                .authorizeHttpRequests(authorize -> authorize
-//                        //Za pristup konozli samo administranorti
-//                        .requestMatchers("/console/**", "/inventory/**", "/order/**").hasRole("ADMIN")
-//                        //Ostatak korisnici
-//                        .requestMatchers("/item/**", "/user/**", "/receipt/**").hasRole("USER")
-//                        //Svi pristup error stranici
-//                        .requestMatchers("/error/**").permitAll()
-//                        //Zahteva autentifikaciju za sve pozive
-//                        .anyRequest().authenticated()
-//                )
-//                .headers(headers -> headers
-//                        // Podesavanja za header-e neophodni za rad /console in memory baze
-//                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
-//                )
-//                //Koriscenje osnovnih http pravilia pristupa
-//                .httpBasic(withDefaults())
-//                //Dodavanje logovanje formom kao i logout
-//                .formLogin(withDefaults());
-//
-//        return http.build();
-//    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/console/**")
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/console/**", "/inventory/**", "/order/**", "/item/**", "/customer/**", "/receipt/**").hasRole("ADMIN")
+                        .requestMatchers("/item/**", "/receipt/**").hasRole("USER")
+                        .requestMatchers("/error/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
+                )
+                .httpBasic(withDefaults())
+                .formLogin(withDefaults());
 
-//    @Bean
-//    public UserDetailsManager users(DataSource dataSource) {
-//        //dodavanje user naloga
-//        //withDefaultPasswordEncoder automatski koristi hesiranje pasworda po defaultu
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("user")
-//                .roles("USER")
-//                .build();
-//
-//        //dodavanje admin naloga
-//        UserDetails admin = User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("ADMIN")
-//                .build();
-//
-//        //koriscenje postojece baze za upis i citanje korisnika
-//        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-//
-//        users.createUser(user);
-//        users.createUser(admin);
-//
-//        return users;
-//    }
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsManager users(DataSource dataSource) {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("user")
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.withDefaultPasswordEncoder()
+                .username("admin")
+                .password("admin")
+                .roles("ADMIN")
+                .build();
+
+        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+
+        users.createUser(user);
+        users.createUser(admin);
+
+        return users;
+    }
 }
