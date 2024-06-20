@@ -1,9 +1,6 @@
 # Projekat i projektna dokumentacija za predmet IT355.
 
 ## Spec
-ifik
-
-acije
 
 <p>Projektni zadatak je izrađen korišćenjem Spring okvira verzije 3 u veriziji 17 Java jezika. </p>
 <p>Najlakši oblik pokretanja projekta je preko Intellij IDEA editora sa skinutom verzijom 22 open source java SDK-a.</p>
@@ -11,7 +8,6 @@ acije
 Spisak zavisnosti:
 
 - `spring-boot-starter-web`
-- 
 - `spring-boot-starter-data-jpa`
 - `h2`
 - `lombok`
